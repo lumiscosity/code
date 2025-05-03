@@ -190,7 +190,7 @@ async function setupApp() {
   get_opening_command().then(handleCommand)
   checkUpdates()
   fetchCredentials()
-  processPendingSurveys()
+  await processPendingSurveys()
 }
 
 const stateFailed = ref(false)
@@ -400,7 +400,12 @@ async function processPendingSurveys() {
         isWithinLastTwoWeeks(instance.last_played) && !isWithinLastTwoWeeks(instance.created),
     ) >= 0
 
-  const surveys = await $fetch('https://api.modrinth.com/v2/surveys')
+  let surveys = []
+  try {
+    surveys = await $fetch('https://api.modrinth.com/v2/surveys')
+  } catch (e) {
+    console.error('Error fetching surveys:', e)
+  }
 
   const surveyToShow = surveys.find(
     (survey) =>
@@ -422,7 +427,7 @@ async function processPendingSurveys() {
       },
       onOpen: () => console.info('Opened user survey'),
       onClose: () => console.info('Closed user survey'),
-      onSubmit: () => console.info('Active user submitted'),
+      onSubmit: () => console.info('Active user survey submitted'),
     }
 
     try {
