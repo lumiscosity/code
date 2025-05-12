@@ -1134,7 +1134,7 @@ async fn minecraft_token(
 #[derive(
     sqlx::Type, Deserialize, Serialize, Debug, Copy, Clone, PartialEq, Eq,
 )]
-#[serde(rename_all(deserialize = "UPPERCASE"))]
+#[serde(rename_all = "UPPERCASE")]
 #[sqlx(rename_all = "UPPERCASE")]
 pub enum MinecraftSkinVariant {
     /// The classic player model, with arms that are 4 pixels wide.
@@ -1148,7 +1148,7 @@ pub enum MinecraftSkinVariant {
 }
 
 #[derive(Deserialize, Serialize, Debug, Copy, Clone, PartialEq, Eq)]
-#[serde(rename_all(deserialize = "UPPERCASE"))]
+#[serde(rename_all = "UPPERCASE")]
 pub enum MinecraftCharacterExpressionState {
     /// This expression is selected for being displayed ingame.
     ///
